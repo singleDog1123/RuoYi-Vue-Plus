@@ -36,4 +36,9 @@ public interface GlobalConstants {
      * 三方认证 redis key
      */
     String SOCIAL_AUTH_CODE_KEY = GLOBAL_REDIS_KEY + "social_auth_codes:";
+
+    /**
+     * 三方认证 redis key
+     */
+    String NODE_PING = GLOBAL_REDIS_KEY + "node_ping:";
 }
