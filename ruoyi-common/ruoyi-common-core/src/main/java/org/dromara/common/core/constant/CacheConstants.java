@@ -22,4 +22,9 @@ public interface CacheConstants {
      */
     String SYS_DICT_KEY = "sys_dict:";
 
+    /**
+     * 用户流量上报队列 cache key
+     */
+    String USER_TRAFFIC_KEY = "user_traffic:";
+
 }

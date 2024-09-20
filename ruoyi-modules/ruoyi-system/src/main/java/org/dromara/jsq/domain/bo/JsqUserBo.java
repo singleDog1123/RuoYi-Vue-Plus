@@ -1,7 +1,5 @@
 package org.dromara.jsq.domain.bo;
 
-import org.dromara.common.core.validate.OnOffGroup;
-import org.dromara.jsq.domain.JsqUser;
 import org.dromara.common.mybatis.core.domain.BaseEntity;
 import org.dromara.common.core.validate.AddGroup;
 import org.dromara.common.core.validate.EditGroup;
@@ -10,12 +8,13 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import jakarta.validation.constraints.*;
 import java.util.Date;
+import org.dromara.jsq.domain.JsqUser;
 
 /**
- * 用户业务对象 jsq_user
+ * 加速器用户业务对象 jsq_user
  *
- * @author Lys
- * @date 2024-07-30
+ * @author lys
+ * @date 2024-09-05
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -25,8 +24,14 @@ public class JsqUserBo extends BaseEntity {
     /**
      *
      */
-    @NotNull(message = "不能为空", groups = { EditGroup.class,OnOffGroup.class })
+    @NotNull(message = "不能为空", groups = { EditGroup.class })
     private Long id;
+
+    /**
+     * 邀请人ID
+     */
+    @NotNull(message = "邀请人ID不能为空", groups = { AddGroup.class, EditGroup.class })
+    private Long inviteUserId;
 
     /**
      * 用户账号
@@ -55,7 +60,7 @@ public class JsqUserBo extends BaseEntity {
     /**
      * 状态：0正常、1禁用
      */
-    @NotNull(message = "状态不能为空", groups = { AddGroup.class, EditGroup.class })
+    @NotNull(message = "状态：0正常、1禁用不能为空", groups = { AddGroup.class, EditGroup.class })
     private Integer status;
 
     /**
@@ -65,21 +70,46 @@ public class JsqUserBo extends BaseEntity {
     private Date expireDate;
 
     /**
-     * 最后在线时间
+     * 最后连接时间
      */
-    @NotNull(message = "最后在线时间不能为空", groups = { AddGroup.class, EditGroup.class })
+    @NotNull(message = "最后连接时间不能为空", groups = { AddGroup.class, EditGroup.class })
     private Date lastConnectionDate;
 
     /**
      * 支付标记，0未支付，1已支付
      */
-    @NotNull(message = "支付状态不能为空", groups = { AddGroup.class, EditGroup.class })
+    @NotNull(message = "支付标记，0未支付，1已支付不能为空", groups = { AddGroup.class, EditGroup.class })
     private Integer payStatus;
 
+    /**
+     * 已使用下行流量
+     */
+    @NotNull(message = "已使用下行流量不能为空", groups = { AddGroup.class, EditGroup.class })
+    private Long trafficDown;
 
     /**
-     * 显示或隐藏
+     * 已使用上行流量
      */
-    @NotNull(message = "显示状态不能为空", groups = { OnOffGroup.class })
-    private Integer showFlag;
+    @NotNull(message = "已使用上行流量不能为空", groups = { AddGroup.class, EditGroup.class })
+    private Long trafficUp;
+
+    /**
+     * 最大流量
+     */
+    @NotNull(message = "最大流量不能为空", groups = { AddGroup.class, EditGroup.class })
+    private Long trafficMax;
+
+    /**
+     * 限速设置
+     */
+    @NotNull(message = "限速设置不能为空", groups = { AddGroup.class, EditGroup.class })
+    private Long speedLimit;
+
+    /**
+     * XrayR密码
+     */
+    @NotBlank(message = "XrayR密码不能为空", groups = { AddGroup.class, EditGroup.class })
+    private String token;
+
+
 }

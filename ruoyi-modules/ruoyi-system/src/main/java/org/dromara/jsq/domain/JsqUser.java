@@ -1,6 +1,6 @@
 package org.dromara.jsq.domain;
 
-import org.dromara.common.mybatis.core.domain.BaseEntity;
+import org.dromara.common.tenant.core.TenantEntity;
 import com.baomidou.mybatisplus.annotation.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -9,15 +9,15 @@ import java.util.Date;
 import java.io.Serial;
 
 /**
- * 用户对象 ym_user
+ * 加速器用户对象 jsq_user
  *
- * @author Lys
- * @date 2024-07-30
+ * @author lys
+ * @date 2024-09-05
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
 @TableName("jsq_user")
-public class JsqUser extends BaseEntity {
+public class JsqUser extends TenantEntity {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -27,6 +27,11 @@ public class JsqUser extends BaseEntity {
      */
     @TableId(value = "id")
     private Long id;
+
+    /**
+     * 邀请人ID
+     */
+    private Long inviteUserId;
 
     /**
      * 用户账号
@@ -59,7 +64,7 @@ public class JsqUser extends BaseEntity {
     private Date expireDate;
 
     /**
-     * 最后在线时间
+     * 最后连接时间
      */
     private Date lastConnectionDate;
 
@@ -69,9 +74,29 @@ public class JsqUser extends BaseEntity {
     private Integer payStatus;
 
     /**
+     * 已使用下行流量
+     */
+    private Long trafficDown;
+
+    /**
+     * 已使用上行流量
+     */
+    private Long trafficUp;
+
+    /**
+     * 最大流量
+     */
+    private Long trafficMax;
+
+    /**
+     * 限速设置
+     */
+    private Long speedLimit;
+
+    /**
      * XrayR密码
      */
-    private String ssPassword;
+    private String token;
 
     /**
      * 删除标志（0代表存在 2代表删除）

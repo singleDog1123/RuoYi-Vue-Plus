@@ -32,4 +32,9 @@ public interface TransConstant {
      */
     String OSS_ID_TO_URL = "oss_id_to_url";
 
+    /**
+     * 字节转G
+     */
+    String BYTE_TO_G = "byte_to_g";
+
 }

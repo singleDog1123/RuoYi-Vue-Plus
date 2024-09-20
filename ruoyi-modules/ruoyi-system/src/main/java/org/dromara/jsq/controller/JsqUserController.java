@@ -23,10 +23,10 @@ import org.dromara.jsq.service.IJsqUserService;
 import org.dromara.common.mybatis.core.page.TableDataInfo;
 
 /**
- * 用户
+ * 加速器用户
  *
- * @author Lys
- * @date 2024-07-30
+ * @author lys
+ * @date 2024-09-05
  */
 @Validated
 @RequiredArgsConstructor
@@ -34,30 +34,30 @@ import org.dromara.common.mybatis.core.page.TableDataInfo;
 @RequestMapping("/jsq/user")
 public class JsqUserController extends BaseController {
 
-    private final IJsqUserService userService;
+    private final IJsqUserService jsqUserService;
 
     /**
-     * 查询用户列表
+     * 查询加速器用户列表
      */
     @SaCheckPermission("jsq:user:list")
     @GetMapping("/list")
     public TableDataInfo<JsqUserVo> list(JsqUserBo bo, PageQuery pageQuery) {
-        return userService.queryPageList(bo, pageQuery);
+        return jsqUserService.queryPageList(bo, pageQuery);
     }
 
     /**
-     * 导出用户列表
+     * 导出加速器用户列表
      */
     @SaCheckPermission("jsq:user:export")
-    @Log(title = "用户", businessType = BusinessType.EXPORT)
+    @Log(title = "加速器用户", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(JsqUserBo bo, HttpServletResponse response) {
-        List<JsqUserVo> list = userService.queryList(bo);
-        ExcelUtil.exportExcel(list, "用户", JsqUserVo.class, response);
+        List<JsqUserVo> list = jsqUserService.queryList(bo);
+        ExcelUtil.exportExcel(list, "加速器用户", JsqUserVo.class, response);
     }
 
     /**
-     * 获取用户详细信息
+     * 获取加速器用户详细信息
      *
      * @param id 主键
      */
@@ -65,41 +65,41 @@ public class JsqUserController extends BaseController {
     @GetMapping("/{id}")
     public R<JsqUserVo> getInfo(@NotNull(message = "主键不能为空")
                                      @PathVariable Long id) {
-        return R.ok(userService.queryById(id));
+        return R.ok(jsqUserService.queryById(id));
     }
 
     /**
-     * 新增用户
+     * 新增加速器用户
      */
     @SaCheckPermission("jsq:user:add")
-    @Log(title = "用户", businessType = BusinessType.INSERT)
+    @Log(title = "加速器用户", businessType = BusinessType.INSERT)
     @RepeatSubmit()
     @PostMapping()
     public R<Void> add(@Validated(AddGroup.class) @RequestBody JsqUserBo bo) {
-        return toAjax(userService.insertByBo(bo));
+        return toAjax(jsqUserService.insertByBo(bo));
     }
 
     /**
-     * 修改用户
+     * 修改加速器用户
      */
     @SaCheckPermission("jsq:user:edit")
-    @Log(title = "用户", businessType = BusinessType.UPDATE)
+    @Log(title = "加速器用户", businessType = BusinessType.UPDATE)
     @RepeatSubmit()
     @PutMapping()
     public R<Void> edit(@Validated(EditGroup.class) @RequestBody JsqUserBo bo) {
-        return toAjax(userService.updateByBo(bo));
+        return toAjax(jsqUserService.updateByBo(bo));
     }
 
     /**
-     * 删除用户
+     * 删除加速器用户
      *
      * @param ids 主键串
      */
     @SaCheckPermission("jsq:user:remove")
-    @Log(title = "用户", businessType = BusinessType.DELETE)
+    @Log(title = "加速器用户", businessType = BusinessType.DELETE)
     @DeleteMapping("/{ids}")
     public R<Void> remove(@NotEmpty(message = "主键不能为空")
                           @PathVariable Long[] ids) {
-        return toAjax(userService.deleteWithValidByIds(List.of(ids), true));
+        return toAjax(jsqUserService.deleteWithValidByIds(List.of(ids), true));
     }
 }
